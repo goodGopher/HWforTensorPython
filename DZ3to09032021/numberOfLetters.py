@@ -14,10 +14,10 @@ for i in range(0,len(listOfLetters)):
         if listOfLetters[i] == listOfLetters[i+1]:
             Counter+=1
         else:
-            print("частота использования символа ",listOfLetters[i]," в тексе :",Counter)
+            print("частота использования символа ",listOfLetters[i]," в тексте :",Counter)
             Counter = 1
     else:
-        print("частота использования символа ",listOfLetters[i]," в тексе :",Counter)
+        print("частота использования символа ",listOfLetters[i]," в тексте :",Counter)
     
     
 
