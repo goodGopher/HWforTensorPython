@@ -3,7 +3,6 @@
 #Нахождение наименьшего общего кратного
 
 def NOD(x,y):
-    print("Nod")
     while x != y:
         if x > y:
             x = x - y
@@ -13,11 +12,9 @@ def NOD(x,y):
 
 
 def NOK(x,y):
-    print("NOK")
     return x * y / NOD(x,y)
 
 def IsSimple(x):
-    print("Is num simple?")
     check = 1
     
     if x == 2:
@@ -33,12 +30,54 @@ def IsSimple(x):
             return 1
         else:
             return 0
+
+#FORMAT
+def menu():
+    print("\tВыберите действие:")
+    print("""
+    1 - НОД двух чисел\n
+    2 - НОК двух чисел\n
+    3 - Проверка числа на простоту\n
+    4 - Выход из программы
+    """)
+menu()
+answer = input()
+
+while answer != '4':
+    if answer == '1':
+        print("Введите первое число:", end = " ")
+        a1 = input()
+        print("Введите второе число:", end = " ")
+        a2 = input()
+        if (a1.isdigit() and a2.isdigit()):
+            print(NOD(int(a1),(int(a2))))
+        else:
+            print("Вы ввели некорректные значения")
+            continue
+    elif answer == '2':
+        print("Введите первое число:", end = " ")
+        a1 = input()
+        print("Введите второе число:", end = " ")
+        a2 = input()
+        if (a1.isdigit() and a2.isdigit()):
+            print(NOK(int(a1),(int(a2))))
+        else:
+            print("Вы ввели некорректные значения")
+            continue
+    elif answer == '3':
+        print("Введите число:", end = " ")
+        a1 = input()
+        if a1.isdigit() :
+            if(IsSimple(int(a1))):
+                print("Число простое")
+            else:
+                print("Число не простое")
+        else:
+            print("Вы ввели некорректные значения")
+            continue
+    else :
+        print("Вы ввели некорректное значение")
+    menu()
+    answer = input()
         
-
-print(NOD(32,24))
-print(NOK(32,24))
-IsSimple(4)
-print(101//2)
-
-for m in range(1,160):
-    print(m,IsSimple(m))
+        

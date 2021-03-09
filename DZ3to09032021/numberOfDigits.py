@@ -1,9 +1,16 @@
 #Частота использования цифр в диапазоне чисел
-#Добавить форматирование к программам
+
 print("Введите границы диапазона:")
-#добавить проверку на ввод
-x1 = int(input())
-x2 = int(input())
+print("Введите первое число: ",end = "")
+x1 = input()
+print("Введите второе число: ",end = "")
+x2 = input()
+
+if x1.isdigit() and x2.isdigit() :
+    x1 = int(x1)
+    x2 = int(x2)
+    if x1 > x2 :
+        x1, x2 = x2, x1
 
 for digit in range(0,10):
     Summ = 0
@@ -16,6 +23,6 @@ for digit in range(0,10):
 
             if last == digit:
                 Summ+=1
-    print("Для цифры ",digit," частота использования ", Summ)
+    print(f"Для цифры {digit} частота использования {Summ}")
     Summ = 0
 
