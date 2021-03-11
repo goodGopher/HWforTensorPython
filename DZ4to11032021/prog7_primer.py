@@ -1,4 +1,4 @@
-def prim_read(prim):
+def prim_read(prim):#проверки и правильное чтение чисел
     out_list = []
     t_stack = []
 
@@ -24,7 +24,7 @@ def prim_read(prim):
     return out_list
 
 
-def prim_to_RPN(input_str):
+def prim_to_RPN(input_str):#Преобразование к обратной польской записи
     if prim_read(input_str):
         prim = prim_read(input_str)
     else:
@@ -67,7 +67,7 @@ def prim_to_RPN(input_str):
 
     return output_str
     
-def calculating(RPN_str):
+def calculating(RPN_str):#Вычисление примера на основе ОПЗ 
     RPN_str = prim_to_RPN(RPN_str)
     if RPN_str in [0,1]:
         if RPN_str == 1:
