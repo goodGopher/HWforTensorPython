@@ -7,7 +7,7 @@ def list_reading(my_list):
         i+=1
         element = input()
 
-print("Введите первый список:")
+print("Введите список через Enter:")
 main_list = []
 list_reading(main_list)
 print(f"начальный список {main_list}")
