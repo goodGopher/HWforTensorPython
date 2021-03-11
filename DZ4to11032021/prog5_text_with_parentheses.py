@@ -15,7 +15,7 @@ def text_check2(text):
             res = left_list.pop()+text[i]
             if res != "{}" and res != "()" and res != "[]":
                 print("скобки расставлены некорректно\n")
-                return    
+                return 
     if len(left_list) != 0 :
         print("скобки расставлены некорректно\n")
         return
@@ -24,7 +24,7 @@ def text_check2(text):
 
 print("Для выхода введите пустую строку.\nВведите текст:")
 text = input()
-while text :
+while text:
     text_check2(text)
     print("Для выхода введите пустую строку.\nВведите текст:")
     text = input()
