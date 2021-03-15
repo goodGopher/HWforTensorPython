@@ -1,5 +1,6 @@
 f = lambda text,letter: 1 if len(text) == 1 and text == letter else  0 if len(text) == 1 else f(text[0],i)+f(text[1:],i)#sorry... 
-""" 1 if len(text) == 1 and text == letter  #возвращаем 1 если символ в тексте совпадает с подсчитываемым
+""" f = lambda text,letter:
+1 if len(text) == 1 and text == letter  #возвращаем 1 если символ в тексте совпадает с подсчитываемым
 else  
     0 if len(text) == 1                     #возвращаем 0 если не совпадает
 else 
