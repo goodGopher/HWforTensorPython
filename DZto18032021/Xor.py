@@ -33,27 +33,22 @@ def menu_grand():
 while True:
     menu_grand()
     a = input()
-    if a == "1":
-        with open('input_for_encryption.txt', 'r', encoding='utf-8') as readed,open('outfile_for_encryption.txt', 'wb') as writed:
+    if a in ["1","2"]:
+        data = [['input_for_encryption.txt', 'outfile_for_encryption.txt'] ,
+            ['r','rb'],
+            ['utf-8',None],
+            ['outfile_for_encryption.txt','outfile_for_decryption.txt'],
+            ['wb','wb']]
+        b = int(a) - 1
+        with  open(data[0][b], data[1][b],encoding=data[2][b]) as readed, open(data[3][b], data[4][b]) as writed:
             print("Введите ключ:",end="")
             key = input()
             if key :
                 writed.write(encryption(readed.read(),key))
- 
-            else:
-                print("Введите ключ")
-                continue
-    elif a == "2":
-        with open('outfile_for_encryption.txt', 'rb') as readed,open('outfile_for_decryption.txt', 'wb') as writed:
-            print("Введите ключ:",end="")
-            key = input()
-            if key :
-                writed.write(encryption(readed.read(),key))
-            else:
-                print("Введите ключ")
-                continue
- 
 
+            else:
+                print("Введите ключ")
+                continue
     elif a == "3":
         print("Выход из программы")
         exit()
