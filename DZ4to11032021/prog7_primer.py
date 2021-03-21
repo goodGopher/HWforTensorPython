@@ -1,9 +1,36 @@
-def prim_read(prim):#проверки и правильное чтение чисел
+"""Calculates entered mathematical example.
+
+Functions:
+    ex_read(example):
+        Checking example for errors (symbols, which are not numbers, parentheses or operations).
+    ex_to_RPN(input_list):
+        Converts list with example to Reverse Polish notation (or RPN) list.
+    calculating(RPN_list):
+        Calculate Reverse Polish notation list.
+    menu():
+        Show user's actions.
+    main():
+        Allows to enter example and to see the result.
+
+"""
+
+def ex_read(examlpe):
+    """Checking example for errors.
+
+    Argument:
+        example -- string with mathematical example.
+    Return:
+        List with numbers, parentheses and operations if example is correct,
+        else return 0.
+    
+    Checking example for errors - symbols, which are not numbers, parentheses or operations.
+
+    """
     out_list = []
     t_stack = []
 
 
-    for i in prim:
+    for i in examlpe:
         if i in ["+","-","*","/","^","(",")"]:
             if len(t_stack) != 0:
                 out_list.append("".join(t_stack))
@@ -24,12 +51,22 @@ def prim_read(prim):#проверки и правильное чтение чи�
     return out_list
 
 
-def prim_to_RPN(input_str):#Преобразование к обратной польской записи
-    if prim_read(input_str):
-        prim = prim_read(input_str)
+def ex_to_RPN(input_list):
+    """Convert string with example to reverse Polish notation.
+
+    Argument:
+        input_list -- list with mathematical example (numbers, operations, parentheses are list members).
+    Return:
+        Return list which contains example converted to reverse Polish notation, if example is correct.  
+        Return 0 if example contains symbols, which are not numbers, parentheses or operations.  
+        Return 1 if brackets are not matched.
+    
+    """
+    if ex_read(input_list):
+        prim = ex_read(input_list)
     else:
        return 0
-    operations_priority = {#приоритеты операций
+    operations_priority = {
         "(":0,
         "+":1,
         "-":1,
@@ -46,7 +83,7 @@ def prim_to_RPN(input_str):#Преобразование к обратной п�
             output_str.append(i)
         elif i == "(" or i == "^" :
            stack.append(i) 
-        elif i in ["+","-","*","/"]:#бинарные операции
+        elif i in ["+","-","*","/"]:
             while len(stack)!= 0 and operations_priority[stack[len(stack)-1]] >= operations_priority[i] :
                 output_str.append(stack.pop())
             stack.append(i)
@@ -55,7 +92,7 @@ def prim_to_RPN(input_str):#Преобразование к обратной п�
             while symbol != "(":
                 output_str.append(symbol)
                 if len(stack) == 0:
-                    return 1 #не согласованы скобки
+                    return 1 
                 else:
                     symbol = stack.pop()
     stack.reverse()
@@ -63,25 +100,33 @@ def prim_to_RPN(input_str):#Преобразование к обратной п�
         if i in ["+","-","*","/","^"]:
             output_str.append(i)
         else:
-            return 1 #не согласованы скобки
+            return 1 
 
     return output_str
+
+   
+def calculating(RPN_list):
+    """Calculate Reverse Polish notation list.
+
+    Argument:
+        RPN_list -- Reverse Polish notation list.
+    Return:
+        result of calculating (type: float).
     
-def calculating(RPN_str):#Вычисление примера на основе ОПЗ 
-    RPN_str = prim_to_RPN(RPN_str)
-    if RPN_str in [0,1]:
-        if RPN_str == 1:
+    """ 
+    RPN_list = ex_to_RPN(RPN_list)
+    if RPN_list in [0,1]:
+        if RPN_list == 1:
             print("не согласованы скобки")
         return 0
 
     stack = []
 
-    for i in RPN_str:
+    for i in RPN_list:
         x1 = 0
         x2 = 0
         if i.isdigit():
             stack.append(i)
-            #стек на пустоту
         elif i in ["+","-","*","/","^"]:
             x1 = float(stack.pop())
             x2 = float(stack.pop())
@@ -96,21 +141,23 @@ def calculating(RPN_str):#Вычисление примера на основе 
             elif i == "^":
                 stack.append(x2**x1)
     return stack.pop()
-        
+
+
 def menu():
+    """Show user's actions."""
     print("Для выхода введите пустую стоку.")
     print("Введите пример:", end = " ")
     
 
-
-#prim = input()
-p = "5+5+5^2 "
-print(p)
-print(calculating(p))
-
-menu()
-primer = input()
-while primer :
-    print(f"Ответ: {calculating(primer)}")
+def main():
+    """Allows to enter example and to see the result."""
     menu()
     primer = input()
+    while primer:
+        print(f"Ответ: {calculating(primer)}")
+        menu()
+        primer = input()
+
+
+if __name__ == "__main__":
+    main()

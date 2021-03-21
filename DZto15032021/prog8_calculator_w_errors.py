@@ -1,4 +1,31 @@
-def prim_read(prim):#проверки и правильное чтение чисел
+"""Calculates entered mathematical example.
+
+Functions:
+    prim_read(prim):
+        Checking example for errors (symbols, which are not numbers, parentheses or operations).
+    prim_to_RPN(input_list):
+        Converts list with example to Reverse Polish notation (or RPN) list.
+    calculating(RPN_list):
+        Calculate Reverse Polish notation list.
+    menu():
+        Show user's actions.
+    main():
+        Allows to enter example and to see the result.
+
+"""
+
+def prim_read(prim):
+    """Checking example for errors.
+
+    Argument:
+        prim -- string with mathematical example.
+    Return:
+        List with numbers, parentheses and operations if example is correct,
+        else return 0.
+    
+    Checking example for errors - symbols, which are not numbers, parentheses or operations.
+
+    """
     out_list = []
     t_stack = []
 
@@ -24,11 +51,22 @@ def prim_read(prim):#проверки и правильное чтение чи�
     return out_list
 
 
-def prim_to_RPN(input_str):#Преобразование к обратной польской записи
-    if prim_read(input_str):
-        prim = prim_read(input_str)
+def prim_to_RPN(input_list):
+    """Convert string with example to reverse Polish notation.
+
+    Argument:
+        input_list -- list with mathematical example (numbers, operations, parentheses are list members).
+    Return:
+        Return list which contains example converted to reverse Polish notation, if example is correct.  
+        Return 0 if example contains symbols, which are not numbers, parentheses or operations.  
+        Return 1 if brackets are not matched.
+    
+    """
+    if prim_read(input_list):
+        prim = prim_read(input_list)
     else:
        return 0
+
     operations_priority = {#приоритеты операций
         "(":0,
         "+":1,
@@ -37,11 +75,10 @@ def prim_to_RPN(input_str):#Преобразование к обратной п�
         "/":2,
         "^":3
     }
-    
     output_str = []
     stack = []
-    for i in prim:
-       
+
+    for i in prim:       
         if i.isdigit() :
             output_str.append(i)
         elif i == "(" or i == "^" :
@@ -64,18 +101,23 @@ def prim_to_RPN(input_str):#Преобразование к обратной п�
         if i in ["+","-","*","/","^"]:
             output_str.append(i)
         else:
-
             raise ValueError
-
     return output_str
-    
-def calculating(RPN_str):#Вычисление примера на основе ОПЗ 
-    RPN_str = prim_to_RPN(RPN_str)
-   
 
+
+def calculating(RPN_list):
+    """Calculate Reverse Polish notation list.
+
+    Argument:
+        RPN_list -- Reverse Polish notation list.
+    Return:
+        result of calculating (type: float).
+    
+    """ 
+    RPN_list = prim_to_RPN(RPN_list)
     stack = []
 
-    for i in RPN_str:
+    for i in RPN_list:
         x1 = 0
         x2 = 0
         if i.isdigit():
@@ -95,32 +137,36 @@ def calculating(RPN_str):#Вычисление примера на основе 
             elif i == "^":
                 stack.append(x2**x1)
     return stack.pop()
-        
+
+
 def menu():
+    """Show user's actions."""
     print("Для выхода введите пустую стоку.")
     print("Введите пример:", end = " ")
     
 
+def main():
+    """Allows to enter example and to see the result."""
+    menu()
+    primer = input()
+    while primer:
+        try:
+            print(f"Ответ: {calculating(primer)}")
+        except ValueError:
+            print("Не согласованы скобки")
+        except TypeError:
+            print("Введен необрабатываемый символ")
+        except OverflowError:
+            print("получилось слишком большое значение для отображения...")
+        except ZeroDivisionError:
+            print("Нельзя делить на 0")
+        except IndexError:
+            print("Не верная форма ввода примера")
+        finally:
+            menu()
+            primer = input()
+    print("Выход из программы")
 
 
-
-
-menu()
-primer = input()
-while primer :
-    try:
-        print(f"Ответ: {calculating(primer)}")
-    except ValueError:
-        print("Не согласованы скобки")
-    except TypeError:
-        print("Введен необрабатываемый символ")
-    except OverflowError:
-        print("получилось слишком большое значение для отображения...")
-    except ZeroDivisionError:
-        print("Нельзя делить на 0")
-    except IndexError:
-        print("Не верная форма ввода примера")
-    finally:
-        menu()
-        primer = input()
-print("Выход из программы")
+if __name__ == "__main__":
+    main()
